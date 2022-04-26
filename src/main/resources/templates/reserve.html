@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>MYCinema</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="/js/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script src="/js/cufon-yui.js" type="text/javascript"></script>
+    <script src="/js/cufon-replace.js" type="text/javascript"></script>
+    <script src="/js/Gill_Sans_400.font.js" type="text/javascript"></script>
+    <script src="/js/script.js" type="text/javascript"></script>
+    <!--[if lt IE 7]>
+    <script type="text/javascript" src="/js/ie_png.js"></script>
+    <script type="text/javascript">ie_png.fix('.png, .link1 span, .link1');</script>
+    <link href="/css/ie6.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+</head>
+<body id="page2">
+<!-- START PAGE SOURCE -->
+<div class="tail-top">
+    <div class="tail-bottom">
+        <div id="main">
+            <div id="header">
+                <div class="row-1">
+                    <div class="fleft"><a href="/home">MY<span>Cinema</span></a></div>
+                    <ul>
+                        <li><a href="/home"><img src="/images/icon1.gif" alt="" /></a></li>
+                        <li><a href="/contact"><img src="/images/icon2.gif" alt="" /></a></li>
+                        <li sec:authorize="!isAuthenticated()"><a href="/login"><img src="https://img.icons8.com/small/100/ffffff/enter-2.png" style="width: 13px; height: 12px" alt="" /></a></li>
+                        <li sec:authorize="isAuthenticated()"><a href="/logout"><img src="https://img.icons8.com/fluency-systems-regular/100/ffffff/exit.png" style="width: 15px; height: 14px" alt="" /></a></li>
+                    </ul>
+                </div>
+                <div class="row-2">
+                    <ul>
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/movies" class="active">Movies</a></li>
+                        <li><a href="/myreservations">My Reservations</a></li>
+                        <li><a href="/news">News</a></li>
+                        <li class="last"><a href="/contact" >Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="content">
+                <div class="line-hor"></div>
+                <div class="box">
+                    <div class="border-right">
+                        <div class="border-left">
+                            <div class="inner">
+                                <h3 th:text="${selectedMovie.name}"></h3>
+                                <p>
+                                    <label for="price" class="sr-only">Movie price</label>
+                                    <span th:text="'$' + ${selectedMovie.price}"></span>
+                                    <input type="hidden" id="moviePrice" th:value="${selectedMovie.price}"/>
+                                </p>
+                                <form method="post" th:action="@{/reservation/{id}(id=${selectedMovie.id})}">
+                                    <p>
+                                        <label for="date" class="sr-only">Date</label>
+                                        <input type="date" id="date" name="date" class="form-control"
+                                               placeholder="Date" required="" autofocus="">
+                                    </p>
+                                    <p>
+                                        <label for="date" class="sr-only">Number of tickets</label>
+                                        <input type="number" id="numberOfTickets" name="numberOfTickets" class="form-control"
+                                               placeholder="Number of tickets" required="" autofocus="" min="1" max="100" oninput="updateTotalPrice()">
+                                    </p>
+                                    <p>
+                                        <label id="totalPriceLabel" class="sr-only">Number of tickets</label>
+                                        <span id="totalPriceValue">$0</span>
+                                    </p>
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit">Reserve</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="footer">
+                    <div class="left">
+                        <div class="right">
+                            <div class="footerlink">
+                                <p class="lf">Copyright &copy; 2010 <a href="#">SiteName</a> - All Rights Reserved</p>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE SOURCE -->
+<script type="text/javascript">
+    Cufon.now();
+    function updateTotalPrice(){
+        var numberOfTickets = document.getElementById("numberOfTickets").value;
+        var moviePrice = document.getElementById("moviePrice").value;
+        document.getElementById("totalPriceValue").innerHTML = '$' + numberOfTickets * moviePrice;
+    }
+</script>
+</body>
+</html>
