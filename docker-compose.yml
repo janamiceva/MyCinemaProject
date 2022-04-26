@@ -8,9 +8,9 @@ services:
     container_name: "wp2020_eshop"
     #   Setup the username, password, and database name. You can changes these values.
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=wp123
-      - POSTGRES_DB=mycinema
+      - POSTGRES_USER=ndmrzzzkpnaklr
+      - POSTGRES_PASSWORD=7d7660168fd982f96cafaa4700f93796498a840d0ab9e8e6c909e15b8462573f
+      - POSTGRES_DB=d4h38o2gqdufb0
     #   Maps port 54320 (localhost) to port 5432 on the container. You can change the ports to fix your needs.
     ports:
       - "5432:5432"
